@@ -1,7 +1,6 @@
 # Get important libraries
 library(ggplot2)     # Grammar of Graphics
 library(gcookbook)
-#library(xlsx)       # Reading Excel
 
 # Load useful functions
 source('SurveyQuestions.R')
@@ -10,8 +9,53 @@ source('SurveyQuestions.R')
 Q <- SurveyQuestions()
 
 # Read table
-D <- read.csv(file='Finns_raw.csv', header=FALSE, col.names=Q, stringsAsFactors=FALSE)
-#data <- read.xlsx("datafile.xlsx", 1)
+D <- read.delim(file='Responses_raw.txt', header=FALSE, col.names=Q, stringsAsFactors=FALSE)
+
+### DATA CLEAN ###
+
+D[['Satisfaction']][D[['Satisfaction']]==11] = NA
+
+clean5s <- c('Satisfaction_Work',
+             'Satisfaction_Safety',
+             'Satisfaction_Home',
+             'Satisfaction_Family',
+             'Satisfaction_Material',
+             'Satisfaction_Friends',
+             'Agree_FutureHope',
+             'Agree_NotRecognised',
+             'Agree_SecondClassCitizen',
+             'Agree_DefendInterests',
+             'Agree_LookFromAbove',
+             'Agree_NoInfluence',
+             'EqualOpp_Work',
+             'EqualOpp_StateWork',
+             'EqualOpp_HeadWork',
+             'EqualOpp_Business',
+             'EqualOpp_Politics',
+             'EqualOpp_Education',
+             'EqualOpp_StartUp',
+             'EqualOpp_Pay',
+             'EqualOpp_Benefit')
+
+for (c in clean5s) {
+  D[[c]][D[[c]]==5] = NA
+}
+
+cleanTrue = c('ChildSchool_State',
+'ChildSchool_Immersion',
+'ChildSchool_Mixed',
+'ChildSchool_Bilingual',
+'ChildSchool_Russian',
+'ChildSchool_Foreign',
+'ChildSchool_None',
+'ChildSchool_NotSure')
+
+for (c in cleanTrue) {
+  D[[c]] = as.logical(D[[c]])
+  D[[c]][is.na(D[[c]])] = FALSE
+}
+
+###
 
 # Type of data in each column
 D_class <- sapply(D, class)
@@ -30,7 +74,7 @@ row.names(Dq_sum) <- NULL
 # Sub-summaries
 
 D_nat <- Dq_sum[grepl('Nat_', Dq_sum$Question), ]
-D_lang <- Dq_sum[grepl('Language_', Dq_sum$Question), ]
+D_lang <- Dq_sum[grepl('Language_', Dq_sum$Question), ] # Except StateLanguage
 D_sLang <- Dq_sum[grepl('StateLanguage_', Dq_sum$Question), ]
 D_cSchool <- Dq_sum[grepl('ChildSchool_', Dq_sum$Question), ] # Incorrect statistic!
 D_inc <- Dq_sum[grepl('Income_', Dq_sum$Question), ]

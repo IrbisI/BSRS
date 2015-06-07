@@ -1,4 +1,5 @@
-SurveyQuestions <- function() { c('Time', 
+SurveyQuestions <- function() { c('Country',
+           'Time', 
            'Nationality_Self',
            'Nat_TimeSpent',
            'Nat_SocialGroups',
