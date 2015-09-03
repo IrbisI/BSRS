@@ -23,30 +23,45 @@ for (q in cleanTrue) {
   D[[q]][is.na(D[[q]])] = FALSE
 }
 
+# Invert data where scales in wrong direction
+for (q in invertValues) {
+  D[[q]] = 5 - D[[q]]
+}
+
+#### Index from Nat_factors (1-4 scale) ---> 1-10 scale
+minMax_Q = c(1, 4)
+nQs = length(nat_Factors)
+D$NationalityScore <- (rowSums(D[, nat_Factors], na.rm=T) - nQs * minMax_Q[1]) /
+  ((minMax_Q[2] - minMax_Q[1]) * nQs) * 10
+D$NationalityScore[D$NationalityScore < 0] <- NA
+
 # Convert to factor
 D$Country <- as.factor(D$Country)
 
 D$Gender <- as.factor(D$Gender)
-levels(D$Gender) <- c("male", "female")
+levels(D$Gender) <- c("Male", "Female")
+
+D$IncomeLevel <- as.factor(D$IncomeLevel)
 
 D$FamilyStatus <- as.factor(D$FamilyStatus)
-levels(D$FamilyStatus) <- c("single", "married", "cohabiting", "dating", "divorced", "widowed")
+levels(D$FamilyStatus) <- c("Single", "Married", "Cohabiting", "Dating", "Divorced", "Widowed")
 
 D[["ReasonForMoving"]][is.na(D[['ReasonForMoving']]) & D[['ReasonForMoving_Other']]!=''] = 4
 D$ReasonForMoving <- as.factor(D$ReasonForMoving)
-levels(D$ReasonForMoving) <- c("work", "study", "family", "other")
+levels(D$ReasonForMoving) <- c("Work", "Study", "Family", "Other")
 
 D$NativeLanguage <- as.factor(D$NativeLanguage)
-levels(D$NativeLanguage) <- c("russian", "state", "other")
+levels(D$NativeLanguage) <- c("Russian", "State", "Other", "Undefined")
+D[is.na(D$NativeLanguage), 'NativeLanguage'] = 'Undefined'
 
 D$Religion <- as.factor(D$Religion)
-levels(D$Religion) <- c("orthodox", "catholic", "protestant", "lutheran", "islam", "buddhism/oriental",
-                        "hinduism", "atheism", "other")
+levels(D$Religion) <- c("Orthodox", "Catholic", "Protestant", "Lutheran", "Islam", "Buddhism/oriental",
+                        "Hinduism", "Atheism", "Other")
 
 D$Education <- as.factor(D$Education)
-levels(D$Education) <- c("basic", "vocational", "polytechnic", "school", "degree", "other")
+levels(D$Education) <- c("Basic", "Vocational", "Polytechnic", "School", "Degree", "Other")
 
 D$Occupation <- as.factor(D$Occupation)
-levels(D$Occupation) <- c("employee", "employer", "entrepreneur", "pensioner (working)", "student (working)",
-                          "pensioner (unemployed)", "student (unemployed)", "unemployed (no benefits)",
-                          "unemployed (benefits)", "housewife", "other")
+levels(D$Occupation) <- c("Employee", "Employer", "Entrepreneur", "Pensioner (working)", "Student (working)",
+                          "Pensioner (unemployed)", "Student (unemployed)", "Unemployed (no benefits)",
+                          "Unemployed (benefits)", "Housewife", "Other")

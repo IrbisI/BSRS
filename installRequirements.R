@@ -1,0 +1,7 @@
+install.packages('corrgram')
+install.packages('RGtk2')
+install.packages('rattle')
+install.packages('randomForest')
+install.packages('inTrees')
+install.packages('rpart.plot')
+install.packages('RColorBrewer')
