@@ -1,10 +1,10 @@
 # correlogram function
-corrAll <- function(df, name) {
+corrAll <- function(df, graphTitle) {
   
   corrgram(df,
            order=TRUE, lower.panel=panel.conf,
            upper.panel=panel.pie, text.panel=panel.txt,
-           main=name)
+           main = graphTitle)
   
 }
 
@@ -32,21 +32,10 @@ setGraph <- function(p, colNum) {
 saveGraph <- function(p, fileName=NULL) {
   print(fileName)
   if (!is.null(fileName)) {
-    ggsave(file.path('graphs', fileName), p)
+    ggsave(file.path('graphs', fileName), p, width=9, height=6)
   } else {
     p
   }
-}
-
-latexTable <- function(fit, tableName) {
-  latexfile <- file.path(WD, 'tables', paste(tableName, '.tex', sep=''))
-  fitTbl <- stargazer(fit)
-  fitTbl <- c('\\documentclass{article}', '\\begin{document}', fitTbl, '\\end{document}')
-  write(fitTbl, file=latexfile)
-  
-  setwd(file.path(WD, 'tables'))
-  texi2dvi(file = latexfile, pdf = TRUE, clean = TRUE)
-  setwd(WD)
 }
 
 histOpaque <- function(df, xCol, fillCol, fileName=NULL, graphTitle=NULL) {
@@ -143,6 +132,8 @@ decisionTree <- function(df, intFactor, choiceFactors, fileName=NULL, graphTitle
       humaniseString)
     )
   }
+  # Set interest factor back to original name
+  names(df_subset)[which(names(df_subset) == humaniseString(intFactor))] <- intFactor
   
   frmla <- paste(intFactor, '~ .')
   
@@ -155,7 +146,7 @@ decisionTree <- function(df, intFactor, choiceFactors, fileName=NULL, graphTitle
   
   if (!is.null(fileName)) {
     png(file.path('graphs', fileName),
-        width     = 6,
+        width     = 8,
         height    = 6,
         units     = "in",
         res       = 300)

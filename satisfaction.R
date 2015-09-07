@@ -1,49 +1,14 @@
 # > Happiness <
-# Satisfaction_*
-# Agree_*
-# Importance_*
-# EqualOpp_*
-
-sat_Factors = c('Satisfaction_Work',
-                'Satisfaction_Safety',
-                'Satisfaction_Home',
-                'Satisfaction_Family',
-                'Satisfaction_Material',
-                'Satisfaction_Friends')
-
-agr_Factors <- c('Agree_FutureHope',
-                 'Agree_NotRecognised',
-                 'Agree_SecondClassCitizen',
-                 'Agree_DefendInterests',
-                 'Agree_LookFromAbove',
-                 'Agree_NoInfluence')
-
-imp_Factors <- c('ImportanceState_NameFamily',
-                 'ImportanceState_Citizenship',
-                 'ImportanceState_Language',
-                 'ImportanceState_Friends',
-                 'ImportanceState_School',
-                 'ImportanceState_Behaviour',
-                 'ImportanceState_Other')
-
-equ_Factors = c('EqualOpp_Work',
-                'EqualOpp_StateWork',
-                'EqualOpp_HeadWork',
-                'EqualOpp_Business',
-                'EqualOpp_Politics',
-                'EqualOpp_Education',
-                'EqualOpp_StartUp',
-                'EqualOpp_Pay',
-                'EqualOpp_Benefit')
+# Satisfaction_* [sat_Factors]
+# Agree_* [agr_Factors]
+# Importance_* [imp_Factors]
+# EqualOpp_* [equ_Factors]
 
 #### Agree ####
 D_sub <- D[, agr_Factors]
 
 # Correlation between overall satisfaction and subtypes
-corrgram(D_sub,
-         order=TRUE, lower.panel=panel.conf,
-         upper.panel=panel.pie, text.panel=panel.txt,
-         main="Correlate Appraisal")
+corrAll(D_sub, "Correlate Appraisal")
 
 print("Dimensions before/after ignoring NAs")
 print(dim(D_sub))
@@ -52,14 +17,8 @@ print(dim(na.omit(D_sub)))
 # Pricipal Components Analysis
 # entering raw data and extracting PCs 
 # from the correlation matrix 
-fit <- princomp(na.omit(D_sub),
-                center = TRUE, scale = TRUE,
-                cor=TRUE)
-summary(fit) # print variance accounted for 
-loadings(fit) # pc loadings 
-plot(fit,type="lines") # scree plot 
-fit$scores # the principal components
-biplot(fit)
+PCA(D_sub)
+
 
 # Appraisal (decision tree) --> distinguish finns & estonians
 decisionTree(D, 'Country', agr_Factors,
@@ -77,7 +36,6 @@ decisionTree(D, 'Country', imp_Factors,
 #### Satisfaction ####
 
 # Can we predict overall satisfaction from Satisfaction_*, Agree_*, and EqualOpp_*:
-
 
 decisionTree(D, 'Satisfaction', c(sat_Factors, agr_Factors, equ_Factors),
              'decTree__Satisfaction-Factors.png',
@@ -130,9 +88,6 @@ decisionTree(subset(D, Country == "Finland"), 'Satisfaction', equ_Factors,
              "Satisfaction by Equality (Finland)",
              rpartMethod="anova")
 
-
-
-
 decisionTree(subset(D, Country == "Finland"), 'Satisfaction', c(sat_Factors, agr_Factors, equ_Factors),
              'decTree__Satisfaction-Factors__Fin.png',
              "Satisfaction by Factors (Finland)",
@@ -145,7 +100,6 @@ decisionTree(subset(D, Country == "Estonia"), 'Satisfaction', c(sat_Factors, agr
              rpartMethod="anova",
              cleanNames=FALSE)
 
-
 #### Other ####
 
 decisionTree(D, 'Country', c(sat_Factors, agr_Factors, equ_Factors),
@@ -154,15 +108,7 @@ decisionTree(D, 'Country', c(sat_Factors, agr_Factors, equ_Factors),
              rpartMethod="class",
              cleanNames=FALSE)
 
-
-decisionTree(D, 'NationalityScore', c(sat_Factors, agr_Factors, equ_Factors),
-             'decTree__Nationality-Factors.png',
-             "Nationality by Factors",
-             rpartMethod="anova",
-             cleanNames=FALSE)
-
-
-
+#### Extra analysis ####
 
 D_sub = D[ ,
           c('Age',
@@ -172,36 +118,11 @@ D_sub = D[ ,
           sat_Factors,
           equ_Factors)]
 
-
-
 # Correlation between overall satisfaction and subtypes
 corrgram(D_sub,
          order=TRUE, lower.panel=panel.conf,
          upper.panel=panel.pie, text.panel=panel.txt,
          main="Correlate Satisfaction")
-
-# MLR - is Satisfcation affected by basic traits?
-fit <- lm(Satisfaction ~ 
-          Age + Gender + TimeInCountry,
-          data = D_sub)
-summary(fit)
-
-# MLR - is Satisfaction affected by individual factors?
-# @@@ Will need to include Finns & Estonians
-fit <- lm(Satisfaction ~ 
-          Satisfaction_Work + Satisfaction_Safety + Satisfaction_Home 
-          + Satisfaction_Family + Satisfaction_Material + Satisfaction_Friends,
-          data = D_sub)
-summary(fit) # show results
-
-# MLR - is Satisfaction affected by equal opportunities?
-# @@@ Will need to include Finns & Estonians
-fit <- lm(Satisfaction ~ 
-            EqualOpp_Work + EqualOpp_StateWork + EqualOpp_HeadWork
-            + EqualOpp_Business + EqualOpp_Politics + EqualOpp_Education
-            + EqualOpp_StartUp + EqualOpp_Pay + EqualOpp_Benefit,
-          data = D_sub)
-summary(fit) # show results
 
 #####################################
 # Factor Analysis

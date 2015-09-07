@@ -1,4 +1,5 @@
 # Get important libraries
+library(tools)
 library(ggplot2)     # Grammar of Graphics
 library(colorspace)
 library(gcookbook)
@@ -11,15 +12,20 @@ library(inTrees)
 library(rpart.plot)
 library(RColorBrewer)
 
+#### Remove graphs and tables before running analysis
+WD <- getwd()
+unlink(file.path(WD, 'tables', '*'))
+unlink(file.path(WD, 'graphs', '*'))
+
 #### Prepare analysis ####
 # Run data analysis step by step
 source('SurveyQuestions.R')
+source('QuestionGroups.R')
 source('ReadData.R')
 source('BasicClean.R')
 source('SimpleStats.R')
 
 # Define analysis parameters
-WD <- getwd()
 binWidth <- 3 # Binwidth for histograms
 randomSeed <- 208
 studyLoc <- c('Estonia', 'Finland')
@@ -36,30 +42,20 @@ source('graphFunctions.R')
 # Distribution of basic traits (separate Fins/Ests by colour)
 source('basicTraits.R')
 
+# Socio-economic
+source('socioEconomic.R')
 
-# Run analysis or not?
-if (F) {
-  # Socio-economic
-  source('socioEconomic.R')
-  
-  # Satisfaction/Happiness
-  source('satisfaction.R')
-  
-  # Appraisal (do you Agree/Disagree?)
-  source('appraisal.R')
-  
-  # Future orientedness (School for children)
-  source('futureOrientedness.R')
-  
-  # Personal info
-  source('personalInfo.R')
-  
-  # Integration
-  source('integration.R')
-  
-  # Nationality
-  source('nationality.R')
-}
+# Future orientedness (School for children)
+source('futureOrientedness.R')
+
+# Nationality
+source('nationality.R')
+
+# Satisfaction/Happiness
+source('satisfaction.R')
+
+# Integration
+source('integration.R')
 
 ##########################
 # TO-DO...!

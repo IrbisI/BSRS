@@ -1,45 +1,45 @@
 surveyQuestions <- c('count',
            'Country',
            'Time', 
-           'Nationality_Self',
-           'Nat_TimeSpent',
-           'Nat_SocialGroups',
-           'Nat_Feeling',
-           'Nat_Influence',
-           'Nat_Happiness',
-           'Nat_Belonging',
-           'Nat_Importance',
-           'Nat_Speaking',
-           'Nat_Pride',
-           'Nat_CulturalActivities',
-           'Nat_Attachment',
-           'Nat_Liking',
-           'Nationality_Father',
-           'Nationality_Mother',
-           'Gender',
-           'Age',
-           'FamilyStatus',
-           'PlaceBirth',
-           'TimeInCountry',
-           'ReasonForMoving',
-           'ReasonForMoving_Other',
-           'Language_Finnish',
-           'Language_Estonian',
-           'Language_Swedish',
-           'Language_English',
-           'Language_German',
+           'Nationality_Self',         # 1.0 С точки зрения национальности, я считаю себя:
+           'Nat_TimeSpent',            # 1.1 Я провел(а) много времени, пытаясь узнать больше о моей нации, об ее истории, традициях и обычаях.
+           'Nat_SocialGroups',         # 1.2 Я активный член в организациях или социальных группах, которые включают в себя в основном людей моей собственной национальности.
+           'Nat_Feeling',              # 1.3 У меня есть четкое ощущение моей национальности и того, что это означает для меня.
+           'Nat_Influence',            # 1.4. Я много думаю о том, насколько моя национальная принадлежность влияет на мою жизнь.
+           'Nat_Happiness',            # 1.5. Я счастлив(а) иметь ту национальность, к которой я принадлежу.
+           'Nat_Belonging',            # 1.6. У меня есть сильное чувство принадлежности к своей собственной национальности.
+           'Nat_Importance',           # 1.7. Я очень хорошо понимаю, что моя национальность значит для меня.
+           'Nat_Speaking',             # 1.8. Для того, чтобы узнать больше о моей национальности, я часто беседую с другими людьми о моей национальной принадлежности.
+           'Nat_Pride',                # 1.9. У меня есть чувство гордости в отношении моей национальности.
+           'Nat_CulturalActivities',   # 1.10. Я принимаю участие в культурных практиках, относящихся к моей национальности, например, приготовление особых блюд, исполнение или прослушивание национальной музыка, почитание традиций и обычаев.
+           'Nat_Attachment',           # 1.11. Я чувствую сильную привязанность в отношении моей национальности.
+           'Nat_Liking',               # 1.12. Я чувствую себя хорошо относительно моего культурного и национального происхождения.
+           'Nationality_Father',       # 2. Национальность моего отца
+           'Nationality_Mother',       # 3. Национальность моей матери
+           'Gender',                   # 4. Ваш пол:
+           'Age',                      # 5. Ваш возраст _______ лет
+           'FamilyStatus',             # 6. Каково Ваше семейное положение в настоящее время? Вы…?
+           'PlaceBirth',               # 7. Место Вашего рождения:
+           'TimeInCountry',            # 8. Сколько всего лет Вы живёте в СТРАНЕ? Запишите, пожалуйста, число полных лет:
+           'ReasonForMoving',          # 9. Вопрос к тем, кто переехал в Финляндию. Что послужило причиной Вашего переезда?  
+           'ReasonForMoving_Other',  
+           'LanguageFinnish',          # 10. Какими языками Вы владеете, кроме родного, и на каком уровне?  					
+           'LanguageEstonian',
+           'LanguageSwedish',
+           'LanguageEnglish',
+           'LanguageGerman',
            'Language_Other',
            'Language_Other_Name',
-           'NativeLanguage',
+           'NativeLanguage',           # 11. Какой язык является для Вас родным?
            'NativeLanguage_Other',
-           'StateLanguage_Listen',
-           'StateLanguage_Read',
-           'StateLanguage_Speak',
-           'StateLanguage_Write',
-           'StateLanguage_Satisfaction',
-           'Religion',
+           'StateLanguageListen',      # 12. Насколько Вы владеете финским языком?  		
+           'StateLanguageRead',
+           'StateLanguageSpeak',
+           'StateLanguageWrite',
+           'StateLanguageSatisfaction',# 13. Как вы считаете, достаточно ли Вам Вашего знания финского языка для жизни в Финляндии?
+           'Religion',                 # 14. Какая из нижеперечисленных религий Вам ближе всего?
            'Religion_Other',
-           'ChildSchool_State',
+           'ChildSchool_State',        # 15. Вопрос к тем, у кого есть дети. Какого вида средняя школа или гимназия, в которой Ваши дети сейчас учатся?  						
            'ChildSchool_Immersion',
            'ChildSchool_Mixed',
            'ChildSchool_Bilingual',
@@ -47,35 +47,35 @@ surveyQuestions <- c('count',
            'ChildSchool_Foreign',
            'ChildSchool_None',
            'ChildSchool_NotSure',
-           'Education',
+           'Education',                # 16. Ваше образование?  
            'Education_Other',
-           'Occupation',
+           'Occupation',               # 17. Какова сейчас Ваша основная деятельность?  
            'Occupation_Other',
-           'IncomeLevel',
-           'Income_Future',
-           'Income_Personal',
-           'Income_Assessment',
-           'Satisfaction',
-           'Satisfaction_Work',
+           'IncomeLevel',              # 18. Как Вы оцениваете Ваш доход?
+           'IncomeFuture',             # 19. Как Вы считаете, через пять лет экономическое положение Вашей семьи, по сравнению с нынешним, будет …?
+           'IncomePersonal',           # 20. Какой был Ваш личный доход за прошедший месяц?
+           'IncomeAssessment',         # 21. Какое из представленных описаний, по Вашему мнению, наиболее точно описывает уровень дохода Вашей семьи в нынешнее время?
+           'Satisfaction',             # 22. Скажите, пожалуйста, насколько Вы удовлетворены своей жизнью в целом в настоящее время?
+           'Satisfaction_Work',        # 23. Скажите, пожалуйста, насколько Вы удовлетворены…?
            'Satisfaction_Safety',
            'Satisfaction_Home',
            'Satisfaction_Family',
            'Satisfaction_Material',
            'Satisfaction_Friends',
-           'Agree_FutureHope',
-           'Agree_NotRecognised',
-           'Agree_SecondClassCitizen',
-           'Agree_DefendInterests',
-           'Agree_LookFromAbove',
-           'Agree_NoInfluence',
-           'ImportanceState_NameFamily',
+           'Agree_FutureHope',         # 24.1 Я смотрю в будущее с надеждой
+           'Agree_NotRecognised',      # 24.2. То, что я делаю, не получает признания
+           'Agree_SecondClassCitizen', # 24.3. Я чувствую себя в обществе человеком второго сорта
+           'Agree_DefendInterests',    # 24.4. Я могу защитить свои интересы
+           'Agree_LookFromAbove',      # 24.5. Из-за моего низкого дохода или работы люди смотрят на меня «сверху вниз»
+           'Agree_NoInfluence',        # 24.6. У меня нет возможности влиять на общество
+           'ImportanceState_NameFamily',  # 25. Насколько важно по Вашему мнению, для неФИННОФ/ЭСТОНЦЕВ следующее, чтобы достичь успеха в Финляндии?  					
            'ImportanceState_Citizenship',
            'ImportanceState_Language',
            'ImportanceState_Friends',
            'ImportanceState_School',
            'ImportanceState_Behaviour',
            'ImportanceState_Other',
-           'EqualOpp_Work',
+           'EqualOpp_Work',            # 26. Замечали ли Вы, что в Финляндии нефинны имеют одинаковые возможности с финнами при прочих равных условиях достичь следующего…?  							
            'EqualOpp_StateWork',
            'EqualOpp_HeadWork',
            'EqualOpp_Business',
@@ -84,11 +84,11 @@ surveyQuestions <- c('count',
            'EqualOpp_StartUp',
            'EqualOpp_Pay',
            'EqualOpp_Benefit',
-           'Equality',
-           'WayOfLife',
-           'Integration',
-           'Democracy',
-           'Emigration_1',
+           'Equality',                 # 27. Как бы Вы оценили положение финнов и нефиннов в обществе Финляндии?
+           'WayOfLife',                # 28. Как Вы считаете, похож ли образ жизни и мыслей финнов, по сравнению с Вашим ...? Почему?
+           'Integration',              # 29. Насколько успешной была до сих пор, по Вашему мнению, интеграция нефиннов в финское общество?
+           'Democracy',                # 30. В конституции сказано, что в финском государстве власть принадлежит народу. Считаете ли Вы себя частью финского народа с точки зрения конституции? Почему?
+           'Emigration_1',             # 31. Если бы Вам предложили переехать на постоянное место жительства в другую страну, то в какую страну Вы бы хотели переехать?
            'Emigration_2')
 
 ### to Integer ###
@@ -110,17 +110,17 @@ toInteger <- c('count',
                'FamilyStatus',
                'TimeInCountry',
                'ReasonForMoving',
-               'Language_Finnish',
-               'Language_Estonian',
-               'Language_Swedish',
-               'Language_English',
-               'Language_German',
+               'LanguageFinnish',
+               'LanguageEstonian',
+               'LanguageSwedish',
+               'LanguageEnglish',
+               'LanguageGerman',
                'Language_Other',
                'NativeLanguage',
-               'StateLanguage_Listen',
-               'StateLanguage_Read',
-               'StateLanguage_Speak',
-               'StateLanguage_Write',
+               'StateLanguageListen',
+               'StateLanguageRead',
+               'StateLanguageSpeak',
+               'StateLanguageWrite',
                'Religion',
                'ChildSchool_State',
                'ChildSchool_Immersion',
@@ -133,9 +133,9 @@ toInteger <- c('count',
                'Education',
                'Occupation',
                'IncomeLevel',
-               'Income_Future',
-               'Income_Personal',
-               'Income_Assessment',
+               'IncomeFuture',
+               'IncomePersonal',
+               'IncomeAssessment',
                'Satisfaction',
                'Satisfaction_Work',
                'Satisfaction_Safety',
@@ -164,6 +164,25 @@ toInteger <- c('count',
                'EqualOpp_StartUp',
                'EqualOpp_Pay',
                'EqualOpp_Benefit')
+
+
+toFactor <- c('Country',
+              'Gender',
+              'FamilyStatus',
+              'NativeLanguage',
+              'Religion',
+              'Education',
+              'Occupation',
+              'StateLanguageListen',
+              'StateLanguageRead',
+              'StateLanguageSpeak',
+              'StateLanguageWrite',
+              'LanguageFinnish',
+              'LanguageEstonian',
+              'LanguageSwedish',
+              'LanguageEnglish',
+              'LanguageGerman'
+              )
 
 ### Clean 5s ###
 clean5s <- c('Satisfaction_Work',
@@ -198,7 +217,11 @@ cleanTrue = c('ChildSchool_State',
               'ChildSchool_None',
               'ChildSchool_NotSure')
 
-invertValues = c('EqualOpp_Work',
+invertValues = c('StateLanguageListen',
+                 'StateLanguageRead',
+                 'StateLanguageSpeak',
+                 'StateLanguageWrite',
+                 'EqualOpp_Work',
                  'EqualOpp_StateWork',
                  'EqualOpp_HeadWork',
                  'EqualOpp_Business',

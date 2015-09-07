@@ -2,13 +2,7 @@
 # ChildSchool_*
 
 D_sub = D[ , 
-          c('ChildSchool_State',
-            'ChildSchool_Immersion',
-            'ChildSchool_Mixed',
-            'ChildSchool_Bilingual',
-            'ChildSchool_Russian',
-            'ChildSchool_Foreign',
-            'ChildSchool_None')]
+          chi_Factors]
 
 # Overall distribution of School Types
 colSums(D_sub)

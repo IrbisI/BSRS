@@ -1,61 +1,41 @@
 # > Socio-Economic <
 # Education_*
 # Occupation_*
-# Income_*
+# Income*
 
-# Plot age versus income level
-histMulti(D, "Age", "IncomeLevel",
-          "IncomeLevel-Age.png")
+linearModel(D, 'IncomeAssessmentScale', 'IncomePersonal', 'IncomeA-vs-IncomeP')
+
+# Plot age versus [Level, Factor, Assessment]
+histMulti(D, "Age", "IncomeLevel", "age-IncomeLevel.png")
+
+histMulti(D, "Age", "IncomeFactor", "age-IncomeFactor.png")
+
+histMulti(D, "Age", "IncomeAssessment", "age-IncomeAssessment.png")
+
+# Plot time in country
+histMulti(D, "TimeInCountry", "IncomeLevel", "TIC-IncomeLevel.png")
+
+histMulti(D, "TimeInCountry", "IncomeFactor", "TIC-IncomeFactor.png")
+
+histMulti(D, "TimeInCountry", "IncomeAssessment", "TIC-IncomeAssessment.png")
 
 # Plot age versus Occupation
-histMulti(D, "Age", "Occupation",
-          "Occ-Age.png")
+histMulti(D, "Age", "Occupation", "Age-Occupation.png")
 
 # Plot age versus Education
-histMulti(D, "Age", "Education", 
-          "Edu-Age.png")
+histMulti(D, "Age", "Education", "Age-Education.png")
 
 #### Random forests ####
 # 'Agree_FutureHope' removed due to many NAs
 #  maybe removed...
 
-treeFactors <- c('IncomeLevel', 'Age', 'Gender', 'Education', 'Occupation')
-# 'Agree_NotRecognised', 'Agree_SecondClassCitizen', 'Agree_NoInfluence')
+treeFactors <- c('Age', 'Gender', 'Education', 'Working', 'Studying', 'Benefits')
 
-Dloc <- subset(D, Country == 'Finland')
-Dloc <- Dloc[, c('Language_Finnish', treeFactors)]
-Dloc <- na.omit(Dloc)
-
-# Decision tree
-tr <- rpart(IncomeLevel ~ .,
-              data=Dloc, method="class")
-summary(tr)
-fancyRpartPlot(tr)
-
-# Random forest
-set.seed(randomSeed)
-
-fit <- randomForest(IncomeLevel ~ .,
-                    data=Dloc, importance=TRUE, ntree=2000)
-plot(fit)
-varImpPlot(fit)
-
-
-Dloc <- subset(D, Country == 'Estonia')
-Dloc <- Dloc[, c('Language_Estonian', treeFactors)]
-Dloc <- na.omit(Dloc)
+decisionTree(subset(D, Country == 'Finland'),
+             'IncomeAssessmentScale', treeFactors, 'DT_incomeL_Finland.png', 'Income Level (Finland)',
+             rpartMethod="anova", cleanNames=FALSE)
 
 # Decision tree
-tr <- rpart(IncomeLevel ~ .,
-            data=Dloc, method="class")
-summary(tr)
-fancyRpartPlot(tr)
-
-# Random forest
-set.seed(randomSeed)
-
-fit <- randomForest(IncomeLevel ~ .,
-                    data=Dloc, importance=TRUE, ntree=2000)
-plot(fit)
-fancyRpartPlot(fit)
-varImpPlot(fit)
+decisionTree(subset(D, Country == 'Estonia'),
+             'IncomeAssessmentScale', treeFactors, 'DT_incomeL_Estonia.png', 'Income Level (Estonia)',
+              rpartMethod="anova", cleanNames=FALSE)

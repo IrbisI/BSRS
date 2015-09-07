@@ -3,9 +3,13 @@
 # TimeInCountry
 # Gender
 # FamilyStatus
+# Religion
+# ReasonForMoving
 # Native_Language
 # NativeLanguage_Other
-# Nat_tScore
+# NationalityScore
+# IncomeAssessment
+# IncomePersonal
 
 #### Native Language statistics ####
 # Native language <most speak Russian>
@@ -31,17 +35,32 @@ for (l in studyLoc) {
 
 #### Scatterplots ####
 
-scatterPlotMulti(D, 'Age', 'NationalityScore', 'Country',
-                 'age-vs-Nationality.png')
+# >>> Dependent variables <<<
+# NationalityScore
+# Satisfaction
+
+# >>> Independent variables <<<
+# TimeInCountry
+# Age
+# StateLanguage_Satisfaction
+# IncomeLevel
+# IncomeAssessment
+
+
+scatterPlotMulti(D, 'TimeInCountry', 'Satisfaction', 'Country',
+                 'TIC-vs-Satisfaction.png')
 
 scatterPlotMulti(D, 'TimeInCountry', 'NationalityScore', 'Country',
                  'TIC-vs-Nationality.png')
 
-scatterPlotMulti(D, 'Satisfaction', 'NationalityScore', 'Country',
-                 'Satisfaction-vs-Nationality.png')
+scatterPlotMulti(D, 'Age', 'NationalityScore', 'Country',
+                 'age-vs-Nationality.png')
 
 scatterPlotMulti(D, 'Age', 'TimeInCountry', 'Country',
                  'age-vs-TIC.png')
+
+scatterPlotMulti(D, 'Satisfaction', 'NationalityScore', 'Country',
+                 'Satisfaction-vs-Nationality.png')
 
 for (l in studyLoc) {
   Dloc <- subset(D, Country == l)
@@ -49,38 +68,35 @@ for (l in studyLoc) {
   fit <- lm(formula = Age ~ TimeInCountry, data = Dloc)
   print(summary(fit))
   
-  latexTable <- latexTable(fit, 'age_TIC')
+  lt <- latexTable(fit, 'age_TIC')
 }
 
 #### Histograms ####
 # Plot age histogram versus country
-histClear(D, 'Age', 'Country',
-           'ageByCountry.png')
+histClear(D, 'Age', 'Country', 'ageByCountry.png')
 
 # Plot TimeInCountry versus country
-histClear(D, 'TimeInCountry', 'Country',
-          'TICbyCountry.png',
+histClear(D, 'TimeInCountry', 'Country', 'TICbyCountry.png',
           'Time In Country')
 
-# Age vs Native Language
-histMulti(D, 'Age', 'NativeLanguage',
-          'age-nativeLanguage.png')
+# Age vs [Native Language, Gender, FamilyStatus, Religion]
+histMulti(D, 'Age', 'NativeLanguage', 'age-nativeLanguage.png')
 
-# Plot age histogram versus gender
-histMulti(D, 'Age', 'Gender',
-          'age-gender.png')
+histMulti(D, 'Age', 'Gender', 'age-gender.png')
 
-# Plot age histogram versus FamilyStatus
-histMulti(D, 'Age', 'FamilyStatus',
-           'age-familyStatus.png')
+histMulti(D, 'Age', 'FamilyStatus', 'age-familyStatus.png')
 
-# Age vs Native Language
-histMulti(D, 'TimeInCountry', 'NativeLanguage',
-          'TIC-nativeLanguage.png')
+histMulti(D, 'Age', 'Religion', 'age-religion.png')
 
-# Plot age histogram versus gender
-histMulti(D, 'TimeInCountry', 'Gender',
-           'TIC-gender.png')
+histMulti(D, 'Age', 'ReasonForMoving', 'age-moving.png')
 
-histMulti(D, 'TimeInCountry', 'FamilyStatus',
-           'TIC-familyStatus.png')
+# Time-In-Country vs [Native Language, Gender, FamilyStatus, Religion]
+histMulti(D, 'TimeInCountry', 'NativeLanguage', 'TIC-nativeLanguage.png')
+
+histMulti(D, 'TimeInCountry', 'Gender', 'TIC-gender.png')
+
+histMulti(D, 'TimeInCountry', 'FamilyStatus', 'TIC-familyStatus.png')
+
+histMulti(D, 'TimeInCountry', 'Religion', 'TIC-religion.png')
+
+histMulti(D, 'TimeInCountry', 'ReasonForMoving', 'TIC-moving.png')
