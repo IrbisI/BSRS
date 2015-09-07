@@ -72,7 +72,7 @@ levels(D$IncomeFuture) <- c("Much worse", "Somewhat worse", "About the same", "S
 D$IncomeFactor <- D$IncomePersonal
 D[D$Country=="Finland", "IncomeFactor"] <- D[D$Country=="Finland", "IncomeFactor"] + 1
 D$IncomeFactor <- as.factor(D$IncomeFactor)
-levels(D$IncomeFactor) <- c("€200-500", "€500-1000", "€1000-1500", "€1500-2000", "€2000-2500", "€2500-3000", "€3000+")
+levels(D$IncomeFactor) <- c("200-500", "500-1000", "1000-1500", "1500-2000", "2000-2500", "2500-3000", "3000+")
 
 y <- list(350, 750, 1250, 1750, 2250) # Estonian incomes
 D[D$Country=="Estonia" & !is.na(D$IncomePersonal), "IncomePersonal"] <- unlist(y[subset(D, Country=="Estonia")$IncomePersonal])
