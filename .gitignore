@@ -1,3 +1,7 @@
+# Graph & table dirs
+graphs/*
+tables/*
+
 # R project files
 .Rproj.user*
 

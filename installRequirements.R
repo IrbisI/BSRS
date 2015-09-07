@@ -1,4 +1,6 @@
+install.packages('gdata')
 install.packages('corrgram')
+install.packages('stargazer')
 install.packages('RGtk2')
 install.packages('rattle')
 install.packages('randomForest')
