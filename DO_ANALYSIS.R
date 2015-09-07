@@ -61,10 +61,7 @@ source('integration.R')
 # TO-DO...!
 #########################
 # @@@ Random forest for School Types?
-# @@@ Do analysis with Estonian/Finn separation
 # @@@ Immigrants vs Born (Age == TimeInCountry)
-# @@@ Migrate PCA code to single function
-# @@@ Move all PCA to covariance matrix [similar scales]
 
 # < Textual >
 # 'Equality'
