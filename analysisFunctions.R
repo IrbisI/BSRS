@@ -22,7 +22,7 @@ linearModel <- function(df, dependent, independent, fileName=NULL) {
 }
 
 # Princial Component Analysis function
-PCA = function(df) {
+PCA = function(df, fileName=NULL) {
   
   for(i in c(1:ncol(df))) {
     df[,i] <- as.numeric(df[,i])
@@ -39,7 +39,6 @@ PCA = function(df) {
   
   fit$scores # the principal components
   
-  biplot(fit)
+  p <- ggbiplot(fit) + theme_bw()
+  saveGraph(p, fileName)
 }
-
-

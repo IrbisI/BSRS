@@ -34,8 +34,7 @@ imp_Factors <- c('ImportanceState_NameFamily',
                  'ImportanceState_Language',
                  'ImportanceState_Friends',
                  'ImportanceState_School',
-                 'ImportanceState_Behaviour',
-                 'ImportanceState_Other')
+                 'ImportanceState_Behaviour')
 
 equ_Factors <- c('EqualOpp_Work',
                 'EqualOpp_StateWork',

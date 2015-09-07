@@ -5,30 +5,12 @@
 # EqualOpp_* [equ_Factors]
 
 #### Agree ####
-D_sub <- D[, agr_Factors]
-
-# Correlation between overall satisfaction and subtypes
-corrAll(D_sub, "Correlate Appraisal")
-
-print("Dimensions before/after ignoring NAs")
-print(dim(D_sub))
-print(dim(na.omit(D_sub)))
-
-# Pricipal Components Analysis
-# entering raw data and extracting PCs 
-# from the correlation matrix 
-PCA(D_sub)
-
-
 # Appraisal (decision tree) --> distinguish finns & estonians
 decisionTree(D, 'Country', agr_Factors,
              'decTree__Country-Appraisal.png',
              "Distinguish country by Appraisal ratings")
 
 #### Importance ####
-
-D_sub <- D[, imp_Factors]
-
 decisionTree(D, 'Country', imp_Factors,
              'decTree__Country-ImportanceState.png',
              "Distinguish country by Importance ratings")
@@ -110,25 +92,39 @@ decisionTree(D, 'Country', c(sat_Factors, agr_Factors, equ_Factors),
 
 #### Extra analysis ####
 
-D_sub = D[ ,
+corrAll(D[ ,
           c('Age',
           'Gender',
           'TimeInCountry',
           'Satisfaction',
           sat_Factors,
-          equ_Factors)]
-
-# Correlation between overall satisfaction and subtypes
-corrgram(D_sub,
-         order=TRUE, lower.panel=panel.conf,
-         upper.panel=panel.pie, text.panel=panel.txt,
-         main="Correlate Satisfaction")
+          equ_Factors)], "Correlate various",
+        'corrVarious.png')
 
 #####################################
 # Factor Analysis
 
+# Correlation between overall satisfaction and subtypes
+corrAll(D[, sat_Factors], "Correlate Satisfaction",
+        "corr_Satisfaction.png")
+
+corrAll(D[, agr_Factors], "Correlate Appraisal",
+        "corr_Appraisal.png")
+
+corrAll(D[, imp_Factors], 'Correlate Importance',
+        "corr_Importance.png")
+
+corrAll(D[, equ_Factors], 'Correlate Equality',
+        "corr_Equality.png")
+
 # Satisfaction
-PCA(D_sub[, sat_Factors])
+PCA(D[, sat_Factors], 'PCA_satFactors.png')
+
+# Satisfaction
+PCA(D[, agr_Factors], 'PCA_agrFactors.png')
+
+# Importance
+PCA(D[, imp_Factors], 'PCA_impFactors.png')
 
 # Equality
-PCA(D_sub[, equ_Factors])
+PCA(D[, equ_Factors], 'PCA_equFactors.png')

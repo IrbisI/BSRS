@@ -7,3 +7,6 @@ install.packages('randomForest')
 install.packages('inTrees')
 install.packages('rpart.plot')
 install.packages('RColorBrewer')
+
+library(devtools)
+install_github("vqv/ggbiplot")

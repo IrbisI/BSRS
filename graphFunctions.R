@@ -1,11 +1,22 @@
 # correlogram function
-corrAll <- function(df, graphTitle) {
+corrAll <- function(df, graphTitle, fileName=NULL) {
+  
+  if (!is.null(fileName)) {
+    png(file.path('graphs', fileName),
+        width     = 8,
+        height    = 8,
+        units     = "in",
+        res       = 300)
+  }
   
   corrgram(df,
            order=TRUE, lower.panel=panel.conf,
            upper.panel=panel.pie, text.panel=panel.txt,
            main = graphTitle)
   
+  if (!is.null(fileName)) {
+    dev.off()
+  }
 }
 
 humaniseString <- function(s) {

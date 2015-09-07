@@ -86,4 +86,3 @@ linearModel(D, 'NationalityScore',
 linearModel(D, 'NationalityScore',
             c('IncomeLevel', 'IncomeFuture', 'IncomePersonal', 'IncomeAssessment'),
             'natScore-vs-Income')
-

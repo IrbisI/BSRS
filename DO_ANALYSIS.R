@@ -1,6 +1,7 @@
 # Get important libraries
 library(tools)
 library(ggplot2)     # Grammar of Graphics
+library(ggbiplot)
 library(colorspace)
 library(gcookbook)
 library(gdata)
@@ -60,8 +61,8 @@ source('integration.R')
 ##########################
 # TO-DO...!
 #########################
-# @@@ Random forest for School Types?
-# @@@ Immigrants vs Born (Age == TimeInCountry)
+# Collate .tex files into single Appendix
+# Remove as.numeric from .tex files & humanise strings within
 
 # < Textual >
 # 'Equality'
