@@ -6,14 +6,14 @@ latexTable <- function(fit, tableName) {
   write(fitTbl, file=latexfile)
   
   setwd(file.path(WD, 'tables'))
-  texi2dvi(file = latexfile, pdf = TRUE, clean = TRUE)
+  texi2dvi(file = latexfile, clean = TRUE)
   setwd(WD)
 }
 
 # linear model function, prints report
-linearModel <- function(df, dependent, independent, fileName=NULL) {
+linearModel <- function(dataFrame, dependent, independent, fileName=NULL) {
   frmla <- paste(dependent, "~", paste('as.numeric(', independent, ')', collapse=" + "))
-  fit <- lm(formula = frmla, data = df)
+  fit <- lm(formula = frmla, data = dataFrame)
   print(summary(fit))
   
   if (!is.null(fileName)){
@@ -22,13 +22,13 @@ linearModel <- function(df, dependent, independent, fileName=NULL) {
 }
 
 # Princial Component Analysis function
-PCA = function(df, fileName=NULL) {
+PCA = function(dataFrame, fileName=NULL) {
   
-  for(i in c(1:ncol(df))) {
-    df[,i] <- as.numeric(df[,i])
+  for(i in c(1:ncol(dataFrame))) {
+    dataFrame[,i] <- as.numeric(dataFrame[,i])
   }
   
-  fit <- princomp(na.omit(df),
+  fit <- princomp(na.omit(dataFrame),
                   center = TRUE, scale = TRUE,
                   cor = FALSE) # Use Covariance matrix, not Correlation
   
@@ -41,4 +41,23 @@ PCA = function(df, fileName=NULL) {
   
   p <- ggbiplot(fit) + theme_bw()
   saveGraph(p, fileName)
+}
+
+# Not working for some reason... @@@
+stepModel <- function(dataFrame, intFactor, depFactors) {
+  
+  dataFrame_subset <- na.omit(dataFrame[, c(intFactor, depFactors)])
+  
+  frmla <- paste(intFactor, "~ 1")
+  
+  min.model <- lm(formula=I(frmla), data = dataFrame_subset)
+  scope <- paste('~', paste(depFactors, collapse = ' + '))
+  fwd.model <- step(min.model, direction="forward", scope = I(scope))
+  
+  #full.model <- lm(paste(intFactor, '~', paste(depFactors, collapse=' + ')), data = na.omit(Dsub))
+  #bck.model <- step(full.model, direction="backward")
+  
+  print(summary(fwd.model))
+  fwd.model
+  
 }

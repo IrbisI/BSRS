@@ -1,5 +1,5 @@
 # correlogram function
-corrAll <- function(df, graphTitle, fileName=NULL) {
+corrAll <- function(dataFrame, graphTitle, fileName=NULL) {
   
   if (!is.null(fileName)) {
     png(file.path('graphs', fileName),
@@ -9,7 +9,7 @@ corrAll <- function(df, graphTitle, fileName=NULL) {
         res       = 300)
   }
   
-  corrgram(df,
+  corrgram(dataFrame,
            order=TRUE, lower.panel=panel.conf,
            upper.panel=panel.pie, text.panel=panel.txt,
            main = graphTitle)
@@ -49,57 +49,57 @@ saveGraph <- function(p, fileName=NULL) {
   }
 }
 
-histOpaque <- function(df, xCol, fillCol, fileName=NULL, graphTitle=NULL) {
+histOpaque <- function(dataFrame, xCol, fillCol, fileName=NULL, graphTitle=NULL) {
   if (is.null(graphTitle)) {
     graphTitle <- ggtitle(paste(humaniseString(fillCol), 'by', humaniseString(xCol)))
   }
   
-  p <- ggplot(df, aes_string(x = xCol, fill = fillCol)) + 
+  p <- ggplot(dataFrame, aes_string(x = xCol, fill = fillCol)) + 
     geom_histogram(binwidth = binWidth) + 
     ggtitle(graphTitle) + 
     xlab(humaniseString(xCol)) +
     guides(fill=guide_legend(title=humaniseString(fillCol)))
   
-  p <- setGraph(p, length(levels(df[, fillCol])))
+  p <- setGraph(p, length(levels(dataFrame[, fillCol])))
   
   saveGraph(p, fileName)
 }
 
-histClear <- function(df, xCol, fillCol, fileName=NULL, graphTitle=NULL) {
+histClear <- function(dataFrame, xCol, fillCol, fileName=NULL, graphTitle=NULL) {
   if (is.null(graphTitle)) {
     graphTitle <- ggtitle(paste(humaniseString(fillCol), 'by', humaniseString(xCol)))
   }
   
-  p <- ggplot(df, aes_string(x = xCol, fill = fillCol)) + 
+  p <- ggplot(dataFrame, aes_string(x = xCol, fill = fillCol)) + 
     geom_histogram(binwidth = binWidth, alpha=.5, position="identity") + 
     ggtitle(graphTitle) + 
     xlab(humaniseString(xCol)) +
     guides(fill=guide_legend(title=humaniseString(fillCol)))
   
-  p <- setGraph(p, length(levels(df[, fillCol])))
+  p <- setGraph(p, length(levels(dataFrame[, fillCol])))
   
   saveGraph(p, fileName)
 }
 
-histMulti <- function(df, xCol, fillCol, fileName=NULL, graphTitle=NULL) {
+histMulti <- function(dataFrame, xCol, fillCol, fileName=NULL, graphTitle=NULL) {
   if (is.null(graphTitle)) {
     graphTitle <- ggtitle(paste(humaniseString(fillCol), 'by', humaniseString(xCol)))
   }
   
-  p <- ggplot(df, aes_string(x = xCol, fill = fillCol)) + 
+  p <- ggplot(dataFrame, aes_string(x = xCol, fill = fillCol)) + 
     geom_histogram(binwidth = binWidth) + 
     facet_grid(Country ~ .) + # We always want to grid by country if at all
     ggtitle(graphTitle) + 
     xlab(humaniseString(xCol)) +
     guides(fill=guide_legend(title=humaniseString(fillCol)))
   
-  p <- setGraph(p, length(levels(df[, fillCol])))
+  p <- setGraph(p, length(levels(dataFrame[, fillCol])))
   
   saveGraph(p, fileName)
 }
 
-scatterPlot <- function(df, xCol, yCol, graphTitle, fileName=NULL) {
-  p <- ggplot(df, aes_string(x = xCol, y = yCol)) +
+scatterPlot <- function(dataFrame, xCol, yCol, graphTitle, fileName=NULL) {
+  p <- ggplot(dataFrame, aes_string(x = xCol, y = yCol)) +
     geom_point() +
     geom_smooth(method = lm) + 
     ggtitle(graphTitle) +
@@ -111,12 +111,12 @@ scatterPlot <- function(df, xCol, yCol, graphTitle, fileName=NULL) {
   saveGraph(p, fileName)
 }
 
-scatterPlotMulti <- function(df, xCol, yCol, fillCol, fileName=NULL, graphTitle=NULL) {
+scatterPlotMulti <- function(dataFrame, xCol, yCol, fillCol, fileName=NULL, graphTitle=NULL) {
   if (is.null(graphTitle)) {
     graphTitle <- ggtitle(paste(humaniseString(xCol), 'vs.',humaniseString(yCol)))
   }
   
-  p <- ggplot(df, aes_string(x = xCol, y = yCol, colour=fillCol)) +
+  p <- ggplot(dataFrame, aes_string(x = xCol, y = yCol, colour=fillCol)) +
     geom_point() +
     geom_smooth(method = lm) + 
     ggtitle(graphTitle) + 
@@ -129,28 +129,28 @@ scatterPlotMulti <- function(df, xCol, yCol, fillCol, fileName=NULL, graphTitle=
   saveGraph(p, fileName)
 }
 
-decisionTree <- function(df, intFactor, choiceFactors, fileName=NULL, graphTitle=NULL,
+decisionTree <- function(dataFrame, intFactor, choiceFactors, fileName=NULL, graphTitle=NULL,
                         rpartMethod="class", cleanNames=TRUE) {
   set.seed(randomSeed)
   
   # Data is subset containing critical factors
-  df_subset <- df[, c(intFactor, choiceFactors)]
+  dataFrame_subset <- dataFrame[, c(intFactor, choiceFactors)]
   
   # Improve visualisation of names
   if (cleanNames) {
-    names(df_subset) <- as.vector(sapply(
-      cutPrefix(names(df_subset)),
+    names(dataFrame_subset) <- as.vector(sapply(
+      cutPrefix(names(dataFrame_subset)),
       humaniseString)
     )
   }
   # Set interest factor back to original name
-  names(df_subset)[which(names(df_subset) == humaniseString(intFactor))] <- intFactor
+  names(dataFrame_subset)[which(names(dataFrame_subset) == humaniseString(intFactor))] <- intFactor
   
   frmla <- paste(intFactor, '~ .')
   
   # Decision tree
   tr <- rpart(frmla,
-              data=df_subset, method=rpartMethod
+              data=dataFrame_subset, method=rpartMethod
   )
   
   print(summary(tr))
