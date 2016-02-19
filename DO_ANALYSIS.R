@@ -1,3 +1,4 @@
+rm(list = ls())
 # Get important libraries
 library(tools)
 library(ggplot2)     # Grammar of Graphics
@@ -59,6 +60,7 @@ source('satisfaction.R')
 source('integration.R')
 
 # Step models to determine what affects nationality
+intFactor = 'NationalityScore'
 source('forwardBackModel.R')
 
 ##########################
