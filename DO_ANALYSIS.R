@@ -1,6 +1,7 @@
 rm(list = ls())
 # Get important libraries
 library(tools)
+library(car)
 library(ggplot2)     # Grammar of Graphics
 library(ggbiplot)
 library(colorspace)
@@ -32,6 +33,9 @@ binWidth <- 3 # Binwidth for histograms
 randomSeed <- 208
 studyLoc <- c('Estonia', 'Finland')
 
+### Analysis prepared, statistics follow
+### Sasha recommends: GO LINE BY LINE INSIDE EACH OF THESE FILES!
+
 # Nationality text parse
 source('nationalityStats.R')
 
@@ -62,6 +66,8 @@ source('integration.R')
 # Step models to determine what affects nationality
 intFactor = 'NationalityScore'
 source('forwardBackModel.R')
+
+source('Extra_Analysis.R')
 
 ##########################
 # TO-DO...!

@@ -36,6 +36,10 @@ D$NationalityScore <- (rowSums(D[, nat_Factors], na.rm=T) - nQs * minMax_Q[1]) /
   ((minMax_Q[2] - minMax_Q[1]) * nQs) * 10
 D$NationalityScore[D$NationalityScore < 0] <- NA
 
+D$NationalityScore_Affir <- rowMeans(D[, natAff_Factors], na.rm=T)
+  
+D$NationalityScore_ID <- rowMeans(D[, natID_Factors], na.rm=T)
+
 #### Languages ####
 # All languages
 langLevels <- c("Not at all", "Understand, don't speak", "Understand & speak a little", "Understand, speak & write", "Fluent")
@@ -88,8 +92,8 @@ levels(D$Occupation) <- c("Employee", "Employer", "Entrepreneur", "Pensioner (wo
 D$Studying <- FALSE
 D[as.numeric(D$Occupation) %in% c(5, 7), 'Studying'] <- TRUE
 
-D$Working <- FALSE
-D[as.numeric(D$Occupation) %in% c(1, 2, 3, 4, 5), 'Working'] <- TRUE
+D$Working <- "Working"
+D[as.numeric(D$Occupation) %in% c(1, 2, 3, 4, 5), 'Working'] <- "Unemployed"
 
 D$Benefits <- FALSE
 D[as.numeric(D$Occupation) %in% c(9), 'Benefits'] <- TRUE

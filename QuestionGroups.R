@@ -11,6 +11,20 @@ nat_Factors <- c('Nat_TimeSpent',
                 'Nat_Attachment',
                 'Nat_Liking')
 
+natAff_Factors <- c('Nat_Feeling',
+                   'Nat_Happiness',
+                   'Nat_Belonging',
+                   'Nat_Importance',
+                   'Nat_Pride',
+                   'Nat_Attachment',
+                   'Nat_Liking')
+
+natID_Factors <- c('Nat_TimeSpent',
+                   'Nat_SocialGroups',
+                   'Nat_Influence',
+                   'Nat_Speaking',
+                   'Nat_CulturalActivities')
+
 nly_Factors <- c('Nationality_Self',
                 'Nationality_Father',
                 'Nationality_Mother')

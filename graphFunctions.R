@@ -43,10 +43,26 @@ setGraph <- function(p, colNum) {
 saveGraph <- function(p, fileName=NULL) {
   print(fileName)
   if (!is.null(fileName)) {
+    print('hello')
     ggsave(file.path('graphs', fileName), p, width=9, height=6)
   } else {
+    print('bye')
     p
   }
+}
+
+barMulti <- function(dataFrame, variable, value, fillCol, fileName=NULL, graphTitle=NULL) {
+  if (is.null(graphTitle)) {
+    graphTitle <- ggtitle(humaniseString(fillCol))
+  }
+  
+  p <- ggplot(data=dataFrame, aes_string(x=variable, y=value, fill=fillCol)) +
+    stat_summary(fun.y=mean, position=position_dodge(), geom="bar", colour='black') +
+    stat_summary(fun.data =  mean_cl_normal, position=position_dodge(), geom = "errorbar") +
+    ggtitle(graphTitle) +
+    coord_flip()
+  
+  saveGraph(p, fileName)
 }
 
 histOpaque <- function(dataFrame, xCol, fillCol, fileName=NULL, graphTitle=NULL) {
@@ -125,6 +141,20 @@ scatterPlotMulti <- function(dataFrame, xCol, yCol, fillCol, fileName=NULL, grap
     guides(fill=guide_legend(title=humaniseString(fillCol))) + 
     theme(plot.title = element_text(lineheight=.8, face="bold")) +
     theme_bw()
+  
+  saveGraph(p, fileName)
+}
+
+violinPlot <- function(dataFrame, xCol, yCol, fileName=NULL, graphTitle=NULL){
+  if (is.null(graphTitle)) {
+    graphTitle <- ggtitle(paste(humaniseString(xCol), 'vs.',humaniseString(yCol)))
+  }
+  
+  p <- ggplot(data=dataFrame, aes_string(x=xCol, y=yCol)) +
+    geom_violin() +
+    ggtitle(graphTitle) + 
+    stat_summary(fun.y=median, geom="point", size=2, color="red") +
+    coord_flip()
   
   saveGraph(p, fileName)
 }
