@@ -43,10 +43,8 @@ setGraph <- function(p, colNum) {
 saveGraph <- function(p, fileName=NULL) {
   print(fileName)
   if (!is.null(fileName)) {
-    print('hello')
     ggsave(file.path('graphs', fileName), p, width=9, height=6)
   } else {
-    print('bye')
     p
   }
 }

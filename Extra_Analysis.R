@@ -160,3 +160,5 @@ for (col in c(q_satisfaction, q_agree, q_equal_opp)){
 manova_plot(D, q_satisfaction, "Satisfaction_")
 manova_plot(D, q_agree, "Agree_")
 manova_plot(D, q_equal_opp, "EqualOpp_")
+manova_plot(D, q_nationality, "Nat_")
+
