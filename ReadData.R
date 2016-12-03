@@ -4,5 +4,5 @@ colnames(D) <- surveyQuestions
 
 # Remove useless rows
 D <- D[-c(1:14),]
-
-
+# Remove last useless column
+D <- D[, -c(ncol(D))]
