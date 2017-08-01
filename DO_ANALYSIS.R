@@ -23,18 +23,19 @@ WD <- getwd()
 unlink(file.path(WD, 'tables', '*'))
 unlink(file.path(WD, 'graphs', '*'))
 
+
 #### Prepare analysis ####
+# Define analysis parameters
+binWidth <- 3 # Binwidth for histograms
+randomSeed <- 208
+studyLoc <- c('Estonia', 'Finland')
+
 # Run data analysis step by step
 source('SurveyQuestions.R')
 source('QuestionGroups.R')
 source('ReadData.R')
 source('BasicClean.R')
 source('SimpleStats.R')
-
-# Define analysis parameters
-binWidth <- 3 # Binwidth for histograms
-randomSeed <- 208
-studyLoc <- c('Estonia', 'Finland')
 
 ### Analysis prepared, statistics follow
 ### Sasha recommends: GO LINE BY LINE INSIDE EACH OF THESE FILES!

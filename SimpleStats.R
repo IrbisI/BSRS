@@ -32,3 +32,20 @@ Dc <- D[, D_qual]
 # Get amount of missing data
 missing_percent <- sum(is.na(D)) / (nrow(D) * ( ncol(D) - 1) ) * 100
 print(sprintf("Missing data is %f%%", missing_percent))
+
+# Get number of men and women in each category
+for (l in studyLoc) {
+  Dloc <- subset(D, Country == l)
+  cat(l, '\n')
+  print(summary(Dloc['Gender']))
+  cat('Age:\n')
+  cat(sprintf('Mean: %f\n', mean(Dloc[ ,'Age'], na.rm=TRUE)))
+  cat(sprintf('St.D.: %f\n', sd(Dloc[ ,'Age'], na.rm=TRUE)))
+  print(summary(Dloc['Education']))
+  print(summary(Dloc['Occupation']))
+  cat('Personal Income:\n')
+  print(summary(as.factor(Dloc[, 'IncomePersonal'])))
+  print(summary(Dloc['Religion']))
+  print(summary(Dloc['NativeLanguage']))
+  cat('\n')
+}
