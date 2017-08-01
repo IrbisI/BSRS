@@ -114,3 +114,6 @@ levels(D$Religion) <- c("Orthodox", "Catholic", "Protestant", "Lutheran", "Islam
                         "Hinduism", "Atheism", "Other")
 
 levels(D$Education) <- c("Basic", "Vocational", "Polytechnic", "School", "Degree", "Other")
+
+# Remove useless column
+D = within(D, rm(Time))

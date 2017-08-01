@@ -15,7 +15,10 @@ library(inTrees)
 library(rpart.plot)
 library(RColorBrewer)
 
+installXLSXsupport(perl='C:\\Perl64\\bin\\perl.exe', verbose=TRUE)
+
 #### Remove graphs and tables before running analysis
+setwd('C:/Users/Admin/Documents/GitHub/BSRS/')
 WD <- getwd()
 unlink(file.path(WD, 'tables', '*'))
 unlink(file.path(WD, 'graphs', '*'))

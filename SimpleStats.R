@@ -28,3 +28,7 @@ D_eqOpp <- Dq_sum[grepl('EqualOpp_', Dq_sum$Question), ]
 D_qual <- sapply(D, is.character)
 
 Dc <- D[, D_qual]
+
+# Get amount of missing data
+missing_percent <- sum(is.na(D)) / (nrow(D) * ( ncol(D) - 1) ) * 100
+print(sprintf("Missing data is %f%%", missing_percent))

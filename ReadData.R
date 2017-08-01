@@ -1,5 +1,8 @@
 # Read table
-D <- read.xls(file.path(WD, "docs", "Responses.full.xlsx"), sheet = 1, header = FALSE, stringsAsFactors=FALSE)
+D <- read.xls(file.path(WD, "docs", "Responses.full.xlsx"),
+              encoding="UTF-8",
+              perl = 'C:\\Perl64\\bin\\perl.exe',
+              sheet = 1, header = FALSE, stringsAsFactors=FALSE)
 colnames(D) <- surveyQuestions
 
 # Remove useless rows
