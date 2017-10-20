@@ -1,7 +1,7 @@
 # Latex table out of common analyses
-latexTable <- function(fit, tableName) {
-  latexfile <- file.path(WD, 'tables', paste(tableName, '.tex', sep=''))
-  fitTbl <- stargazer(fit)
+latexTable <- function(fit, fileName, myTitle) {
+  latexfile <- file.path(WD, 'tables', paste(fileName, '.tex', sep=''))
+  fitTbl <- stargazer(fit, title = myTitle)
   fitTbl <- c('\\documentclass{article}', '\\begin{document}', fitTbl, '\\end{document}')
   write(fitTbl, file=latexfile)
   

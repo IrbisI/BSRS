@@ -125,9 +125,12 @@ scatterPlot <- function(dataFrame, xCol, yCol, graphTitle, fileName=NULL) {
   saveGraph(p, fileName)
 }
 
-scatterPlotMulti <- function(dataFrame, xCol, yCol, fillCol, fileName=NULL, graphTitle=NULL) {
+scatterPlotMulti <- function(dataFrame, xCol, yCol, fillCol,
+                             fileName=NULL, graphTitle=NULL) {
   if (is.null(graphTitle)) {
-    graphTitle <- ggtitle(paste(humaniseString(xCol), 'vs.',humaniseString(yCol)))
+    graphTitle <- ggtitle(paste(humaniseString(xCol),
+                                'vs.',
+                                humaniseString(yCol)))
   }
   
   p <- ggplot(dataFrame, aes_string(x = xCol, y = yCol, colour=fillCol)) +

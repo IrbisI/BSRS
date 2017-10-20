@@ -47,5 +47,8 @@ for (l in studyLoc) {
   print(summary(as.factor(Dloc[, 'IncomePersonal'])))
   print(summary(Dloc['Religion']))
   print(summary(Dloc['NativeLanguage']))
+  cat('TimeInCountry:\n')
+  cat(sprintf('Mean: %f\n', mean(Dloc[ ,'TimeInCountry'], na.rm=TRUE)))
+  cat(sprintf('St.D.: %f\n', sd(Dloc[ ,'TimeInCountry'], na.rm=TRUE)))
   cat('\n')
 }

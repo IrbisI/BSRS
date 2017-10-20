@@ -51,7 +51,7 @@ decisionTree(subset(D, Country == "Estonia"), 'Satisfaction', agr_Factors,
              rpartMethod="anova")
 
 decisionTree(subset(D, Country == "Finland"), 'Satisfaction', agr_Factors,
-             'decTree__Satisfaction-agrFactors_Fin.png',
+             'decTree__Satisfaction-_Fin.png',
              "Satisfaction by Personality (Finland)",
              rpartMethod="anova")
 
@@ -77,10 +77,57 @@ decisionTree(subset(D, Country == "Finland"), 'Satisfaction', c(sat_Factors, agr
              cleanNames=FALSE)
 
 decisionTree(subset(D, Country == "Estonia"), 'Satisfaction', c(sat_Factors, agr_Factors, equ_Factors),
-             'decTree__Satisfaction-Factors__Est.png',
+             'decTree__Satisfaction-satFactors__Est.png',
              "Satisfaction by Factors (Estonia)",
              rpartMethod="anova",
              cleanNames=FALSE)
+
+####Nationality by Satisfaction####
+
+#Can we predict Nationality from Satisfaction_*, (Agree_*, and EqualOpp_*#
+
+decisionTree(dataFrame     = D,
+             intFactor     = 'NationalityScore',
+             choiceFactors = c(sat_Factors),
+             fileName      = 'decTree__NationalityScore-Factors.png',
+             graphTitle    = "Ethnic Identity Score by Satisfaction",
+             rpartMethod   = "anova",
+             cleanNames    = FALSE)
+
+
+decisionTree(dataFrame     = D,
+             intFactor     = 'NationalityScore',
+             choiceFactors = c(agr_Factors),
+             fileName      = 'decTree__NationalityScore-Agree.png',
+             graphTitle    = "Nationality by Satisfaction 2",
+             rpartMethod   = "anova",
+             cleanNames    = FALSE)
+
+
+
+decisionTree(dataFrame     = D,
+             intFactor     = 'NationalityScore',
+             choiceFactors = c(equ_Factors),
+             fileName      = 'decTree__NationalityScore-Equality.png',
+             graphTitle    = "Nationality by Satisfaction 3",
+             rpartMethod   = "anova",
+             cleanNames    = FALSE)
+
+
+
+
+
+####Overall Satisfaction by detailed questions ####
+
+decisionTree(dataFrame     = D,
+             intFactor     = 'NationalityScore',
+             choiceFactors = c(equ_Factors),
+             fileName      = 'decTree__NationalityScore-Equality.png',
+             graphTitle    = "Nationality by Satisfaction 3",
+             rpartMethod   = "anova",
+             cleanNames    = FALSE)
+
+
 
 #### Other ####
 

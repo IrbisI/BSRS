@@ -62,6 +62,7 @@ source('futureOrientedness.R')
 source('nationality.R')
 
 # Satisfaction/Happiness
+# Error: Error in decisionTree(D, "Nationality", c(nat_Factors), "Satisfaction",  : unused argument ("Nationality by Satisfaction")
 source('satisfaction.R')
 
 # Integration

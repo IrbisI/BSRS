@@ -1,4 +1,4 @@
-# Distribution of basic traits (separate Fins/Ests by colour)
+//# Distribution of basic traits (separate Fins/Ests by colour)
 # Age
 # TimeInCountry
 # Gender
@@ -47,14 +47,21 @@ for (l in studyLoc) {
 # IncomeAssessment
 
 
-scatterPlotMulti(D, 'TimeInCountry', 'Satisfaction', 'Country',
-                 'TIC-vs-Satisfaction.png')
+scatterPlotMulti(dataFrame = D,
+                 xCol      = 'TimeInCountry',
+                 yCol      = 'Satisfaction',
+                 fillCol   = 'Country',
+                 fileName  = 'TIC-vs-Satisfaction.png')
 
 scatterPlotMulti(D, 'TimeInCountry', 'NationalityScore', 'Country',
                  'TIC-vs-Nationality.png')
 
-scatterPlotMulti(D, 'Age', 'NationalityScore', 'Country',
-                 'age-vs-Nationality.png')
+scatterPlotMulti(D,
+                 xCol = 'Age',
+                 yCol = 'NationalityScore',
+                 fillCol = 'Country',
+                 fileName = 'age-vs-Nationality.png',
+                 graphTitle = 'Interrelation between Age and Nationality Score')
 
 scatterPlotMulti(D, 'Age', 'TimeInCountry', 'Country',
                  'age-vs-TIC.png')
@@ -65,10 +72,22 @@ scatterPlotMulti(D, 'Satisfaction', 'NationalityScore', 'Country',
 for (l in studyLoc) {
   Dloc <- subset(D, Country == l)
   
-  fit <- lm(formula = Age ~ TimeInCountry, data = Dloc)
+  # Age vs. TimeInCountry
+  fit <- lm(formula = 'Age ~ TimeInCountry', data = Dloc)
   print(summary(fit))
+  fileName <- paste('age_TIC', l, sep='_')
+  lt <- latexTable(fit,
+                   fileName,
+                   myTitle = "Interrelation between Age and Time in Country")
   
-  lt <- latexTable(fit, 'age_TIC')
+  # Age vs. NationalityScore
+  fit <- lm(formula = 'Age ~ NationalityScore', data = Dloc)
+  print(summary(fit))
+  fileName <- paste('age_NationalityScore', l, sep='_')
+  lt <- latexTable(fit,
+                   fileName,
+                   myTitle = "Interrelation between Age and Nationality Score")
+
 }
 
 #### Histograms ####
