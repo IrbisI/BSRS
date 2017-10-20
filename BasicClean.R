@@ -29,7 +29,7 @@ D[['ReasonForMoving']][D[['ReasonForMoving']]==4] <- NA
 # Satisfaction 11s to NAs
 D[['Satisfaction']][D[['Satisfaction']]==11] <- NA
 
-#### Index from Nat_factors (1-4 scale) ---> 1-10 scale
+#### Index from Nat_factors (1-4 scale) ---> 0-10 scale
 minMax_Q = c(1, 4)
 nQs = length(nat_Factors)
 D$NationalityScore <- (rowSums(D[, nat_Factors], na.rm=T) - nQs * minMax_Q[1]) /

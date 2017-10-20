@@ -51,10 +51,19 @@ scatterPlotMulti(dataFrame = D,
                  xCol      = 'TimeInCountry',
                  yCol      = 'Satisfaction',
                  fillCol   = 'Country',
-                 fileName  = 'TIC-vs-Satisfaction.png')
+                 fileName  = 'TIC-vs-Satisfaction.png',
+                 graphTitle = 'Interrelation between Time of Stay in Country and Well-being')
 
-scatterPlotMulti(D, 'TimeInCountry', 'NationalityScore', 'Country',
-                 'TIC-vs-Nationality.png')
+### Какой здесь p-value?
+
+
+
+scatterPlotMulti(D, 
+                 xCol = 'TimeInCountry', 
+                 yCol = 'NationalityScore', 
+                 fillCol = 'Country',
+                 fileName = 'TIC-vs-Nationality.png',
+                 graphTitle = 'Interrelation between Time of Stay in Country and Nationality Score')
 
 scatterPlotMulti(D,
                  xCol = 'Age',

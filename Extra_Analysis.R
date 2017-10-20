@@ -3,7 +3,10 @@ library(ggplot2)
 library(reshape2)
 source("graphFunctions.R")
 
-manova_plot <- function(data, col_names, prefix){
+manova_plot <- function(data, col_names, prefix, graphTitle=NULL){
+  if (is.null(graphTitle)) {
+    graphTitle <- paste(gsub("_", "", prefix), "by Country")
+  }
   fit <- manova(as.matrix(D[, col_names]) ~ Country, data=D)
   print(summary(fit))
   
@@ -12,7 +15,7 @@ manova_plot <- function(data, col_names, prefix){
     fit <-t.test(D[D['Country']=='Estonia', col], D[D['Country']=='Finland', col]) 
     #print(fit)
     if (fit$p.value < (0.05 / length(col_names))){
-      cat("\t*** Significant! ***", "(p-value: ", fit$p.value, "; t-value: ", fit$statistic, "; df: ", fit$parameter, ")", "\n")
+      cat("\t*** Significant! *", "(p-value: ", fit$p.value, "; t-value: ", fit$statistic, "; df: ", fit$parameter, ")", "\n")
     }
     cat("\n")
   }
@@ -22,10 +25,10 @@ manova_plot <- function(data, col_names, prefix){
   D_subset_m <- melt(D_subset, id.vars = 'Country')
   
   p <- barMulti(D_subset_m, 'variable', 'value', fillCol='Country',
-                graphTitle=paste(gsub("_", "", prefix), "by Country"),
+                graphTitle=graphTitle,
                 fileName=paste(prefix, "_Country__MANOVA.png", sep=""))
 }
-
+ 
 # Descriptive statistics of Nationality score by country (split by affirmation & ID)
 summary(D$NationalityScore_Affir[D$Country == 'Finland'])
 summary(D$NationalityScore_Affir[D$Country == 'Estonia'])
@@ -35,6 +38,11 @@ summary(D$NationalityScore_ID[D$Country == 'Estonia'])
 
 model <- lm(NationalityScore ~ Country, data=D)
 Anova(model, type='II')
+
+# ANCOVA (Country & TimeInCountry)
+model <- lm(NationalityScore ~ TimeInCountry * Country, data=D)
+Anova(model, type='II')
+
 
 model <- lm(NationalityScore_Affir ~ Country, data=D)
 Anova(model, type='II')
@@ -137,7 +145,7 @@ Anova(model, type='II')
 
 violinPlot(D_subset, 'Occupation', 'NationalityScore',
            fileName = 'Violin_Occ_NatScore.png',
-           graphTitle = 'Nat. Score by Occupation')
+           graphTitle = 'National Score by Occupation')
 
 # Working or not working
 model <- lm(NationalityScore ~ Working * Country, data=D)
@@ -157,8 +165,8 @@ for (col in c(q_satisfaction, q_agree, q_equal_opp)){
 }
 
 # Do MANOVAs (Multivariate ANOVA)
-manova_plot(D, q_satisfaction, "Satisfaction_")
-manova_plot(D, q_agree, "Agree_")
+manova_plot(D, q_satisfaction, "Satisfaction_", graphTitle="Level of Life Satisfaction by Country")
+manova_plot(D, q_agree, "Level of Personal Well-being")
 manova_plot(D, q_equal_opp, "EqualOpp_")
 manova_plot(D, q_nationality, "Nat_")
 

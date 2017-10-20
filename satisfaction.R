@@ -90,7 +90,7 @@ decisionTree(dataFrame     = D,
              intFactor     = 'NationalityScore',
              choiceFactors = c(sat_Factors),
              fileName      = 'decTree__NationalityScore-Factors.png',
-             graphTitle    = "Ethnic Identity Score by Satisfaction",
+             graphTitle    = "Ethnic Identity Score by Life Satisfaction",
              rpartMethod   = "anova",
              cleanNames    = FALSE)
 
